@@ -60,6 +60,14 @@ var sum_list = {};
 */
 
 
+function checkResponseStatus(res) {
+    if(res.ok){
+        return res
+    } else {
+        throw new Error(`The HTTP status of the reponse: ${res.status} (${res.statusText})`);
+    }
+}
+
 
 // Execute a cron job every hour when, the minute is 01 (e.g. 19:01, 20:01, 21:01, etc.).
 const job = schedule.scheduleJob('1 * * * *', function(){
@@ -113,8 +121,10 @@ const job = schedule.scheduleJob('1 * * * *', function(){
             body: JSON.stringify(billing_list),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(checkResponseStatus)
         .then(res => res.json())
-        .then(json => console.log(json));
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
 
     })
     .on("error", function (error) {
@@ -178,8 +188,10 @@ const job_5 = schedule.scheduleJob('*/1 * * * *', function(){
             body: JSON.stringify(billing_list),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(checkResponseStatus)
         .then(res => res.json())
-        .then(json => console.log(json));
+        .then(json => console.log(json))
+        .catch(err => console.log(err));
 
     })
     .on("error", function (error) {
