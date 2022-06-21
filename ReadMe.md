@@ -43,9 +43,21 @@ There is one 1 component or main file (module / general scope of project) in thi
 
 #### To start the module you have to run 
 
+#### Implemented without Express
 
-### node cron-ping.js
+<br>
 
+```
+
+    npm install
+
+
+    node cron-ping.js
+
+```
+
+<br>
+<br>
 
 
 
