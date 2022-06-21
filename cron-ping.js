@@ -96,8 +96,14 @@ cron.schedule('2 * * * *', function() {
 
 // Execute a cron job every 1 Minute = */1 * * * *
 const job_5 = schedule.scheduleJob('*/1 * * * *', function(){
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+
     console.log("\n");
-    console.log('running a task every minute');
+    console.log('running a task every minute : ', dateTime);
     console.log("\n");
     
     fs.createReadStream('extract_caspratique.csv')
