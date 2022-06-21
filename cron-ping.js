@@ -12,7 +12,7 @@ console.log("\n");
 
 //
 
-// this variable will be a list of objects containing the LearnerId and the sum of their quotedPrice 
+// this variable will be a list of objects containing the LearnerId and the sum of their QuotedPrice 
 var sum_list = []
 /*
     [ 
@@ -26,22 +26,42 @@ var sum_list = []
 
 */
 
+var billing_list = [];
+
 // sum of all  quotedPrice
 
 fs.createReadStream('extract_caspratique.csv')
     .pipe(csv())
     .on('data', (row) => {
 
-        console.log(row);
+        var billing = {}
+
+        // console.log(row);
+
+        // console.log("\n");
+
+        // console.log(row['LearnerId'], " : ", parseFloat(row['QuotedPrice']));
+
+        billing[row['LearnerId']] = parseFloat(row['QuotedPrice']);
 
         console.log("\n");
 
-        console.log(row['LearnerId']);
+        console.log(billing);
+
+        billing_list.push(billing);
 
         // for // LearnerId 
         // Object.keys(row).forEach(key => {
         //     console.log(key, row[LearnerId]);
         // });
+
+        /*
+            const person = {
+                firstName: "John",
+                lastName: "Doe"
+            };
+
+        */
 
 
         console.log("\n");
@@ -50,12 +70,22 @@ fs.createReadStream('extract_caspratique.csv')
     .on('end', () => {
         console.log("\n");
         console.log('CSV file successfully processed');
+
+        console.log("\n");
+        console.log("*************** Billing list ***************");
+
+        console.log(billing_list);
     })
     .on("error", function (error) {
         console.log("\n");
         console.log(error.message);
     });
 
+
+console.log("\n");
+console.log("*************** Billing list ***************");
+
+console.log(billing_list);
 
 
 // Execute a cron job when the minute is 01 (e.g. 19:01, 20:01, 21:01, etc.).
