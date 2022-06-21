@@ -4,6 +4,12 @@
 // http
 const http = require("http"); 
 
+// ***** node fetch module *****
+// To use the module in code (for versions prior to version 3.0)
+const fetch = require('node-fetch');
+// If you're using ESM, you'll import the module in a different manner:
+//import fetch from 'node-fetch';
+
 // node task schedduler module
 const schedule = require('node-schedule');
 
@@ -17,6 +23,10 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 // ...
+
+
+// tthe url we are going to use to send data
+const export_url = "https://hook.integromat.com/lb5g8s0cj3duczsbikrlvtmydzwaxa6j";
 
 
 // this variable will be a list of objects containing the LearnerId and the sum of their QuotedPrice 
@@ -98,6 +108,14 @@ const job = schedule.scheduleJob('1 * * * *', function(){
         console.log("******************** Final Billing List format ********************");
         console.log(billing_list);
 
+        fetch(export_url, {
+            method: 'POST',
+            body: JSON.stringify(billing_list),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(json => console.log(json));
+
     })
     .on("error", function (error) {
         console.log("\n");
@@ -154,6 +172,14 @@ const job_5 = schedule.scheduleJob('*/1 * * * *', function(){
         console.log("\n");
         console.log("******************** Final Billing List format ********************");
         console.log(billing_list);
+
+        fetch(export_url, {
+            method: 'POST',
+            body: JSON.stringify(billing_list),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(res => res.json())
+        .then(json => console.log(json));
 
     })
     .on("error", function (error) {
