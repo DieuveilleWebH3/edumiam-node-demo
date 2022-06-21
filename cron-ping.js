@@ -53,11 +53,11 @@ fs.createReadStream('extract_caspratique.csv')
         // this one is better : my_object.hasOwnProperty('key')
         sum_list.hasOwnProperty(row['LearnerId']) ? sum_list[row['LearnerId']] += parseFloat(row['QuotedPrice']) : sum_list[row['LearnerId']] = parseFloat(row['QuotedPrice']);
 
-        console.log("\n");
+        // console.log("\n");
 
-        console.log(sum_list);
+        // console.log(sum_list);
 
-        console.log("\n");
+        // console.log("\n");
 
     })
     .on('end', () => {
@@ -69,14 +69,27 @@ fs.createReadStream('extract_caspratique.csv')
 
         console.log(sum_list);
 
+        Object.entries(sum_list).forEach(entry => {
+            const [key, value] = entry;
+            console.log(key, value);
+
+            billing_list.push({
+                learner: key,
+                totalQuoted: value
+            })
+        });
+
         // for(let i=0; i<billing_list.length; i++)
         // {
         //     console.log("\n");
         //     // billing_list[i]
-        //     Object.keys(billing_list[i]).forEach(key => {
-        //         console.log(key, billing_list[i][key]);
-        //     });
-        // } 
+        //     console.log(billing_list[i]);
+        // }
+
+        console.log("\n");
+        console.log("******************** Final Billing List format ********************");
+        console.log(billing_list);
+
     })
     .on("error", function (error) {
         console.log("\n");
