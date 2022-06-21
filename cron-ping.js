@@ -180,8 +180,9 @@ const job_5 = schedule.scheduleJob('*/1 * * * *', function(){
         });
 
         console.log("\n");
-        console.log("******************** Final Billing List format ********************");
-        console.log(billing_list);
+        console.log("******************** Final Billing List JSON format ********************");
+        // console.log(billing_list);
+        console.log(JSON.stringify(billing_list));
 
         fetch(export_url, {
             method: 'POST',
