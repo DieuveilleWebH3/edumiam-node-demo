@@ -6,9 +6,9 @@ const fs = require('fs');
 
 // ...
 
-console.log("\n");
-console.log(" ********** It is running **********");
-console.log("\n");
+// console.log("\n");
+// console.log(" ********** It is running **********");
+// console.log("\n");
 
 //
 
@@ -26,15 +26,32 @@ var billing_list = []
 
 */
 
-var sum_list = {};
 
-// sum of all  quotedPrice
+// this variable will be an object for the extracted data
+// containing the LearnerID as key and the sum of all their QuotedPrice as value 
+var sum_list = {};
+/*
+    { 
+        'fenolle.lenenr@orange.fr': 140,
+        'noloe_123@gmail.fr': 778,
+        'Cenolle.cerre0112@gmail.com': 175,
+        'veooro@gmail.fr': 1710,
+        ...,
+        ...,
+        ...
+    }
+*/
+
 
 fs.createReadStream('extract_caspratique.csv')
     .pipe(csv())
     .on('data', (row) => {
 
-        row['LearnerId'] in sum_list ? sum_list[row['LearnerId']] += parseFloat(row['QuotedPrice']) : sum_list[row['LearnerId']] = parseFloat(row['QuotedPrice']);
+        // this here works, but is not totaly safe : 'key" in my_object
+        // row['LearnerId'] in sum_list ? sum_list[row['LearnerId']] += parseFloat(row['QuotedPrice']) : sum_list[row['LearnerId']] = parseFloat(row['QuotedPrice']);
+
+        // this one is better : my_object.hasOwnProperty('key')
+        sum_list.hasOwnProperty(row['LearnerId']) ? sum_list[row['LearnerId']] += parseFloat(row['QuotedPrice']) : sum_list[row['LearnerId']] = parseFloat(row['QuotedPrice']);
 
         console.log("\n");
 
