@@ -10,15 +10,50 @@ console.log("\n");
 console.log(" ********** It is running **********");
 console.log("\n");
 
+//
+
+// this variable will be a list of objects containing the LearnerId and the sum of their quotedPrice 
+var sum_list = []
+/*
+    [ 
+        { 
+            learner: "learner1@gmail.com", 
+            totalQuoted: 520€, 
+        }, 
+        {...}, 
+        {...} 
+    ] 
+
+*/
+
+// sum of all  quotedPrice
 
 fs.createReadStream('extract_caspratique.csv')
     .pipe(csv())
     .on('data', (row) => {
+
         console.log(row);
+
+        console.log("\n");
+
+        console.log(row['LearnerId']);
+
+        // for // LearnerId 
+        // Object.keys(row).forEach(key => {
+        //     console.log(key, row[LearnerId]);
+        // });
+
+
+        console.log("\n");
+
     })
     .on('end', () => {
         console.log("\n");
         console.log('CSV file successfully processed');
+    })
+    .on("error", function (error) {
+        console.log("\n");
+        console.log(error.message);
     });
 
 
