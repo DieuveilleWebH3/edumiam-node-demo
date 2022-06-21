@@ -6,11 +6,6 @@ const fs = require('fs');
 
 // ...
 
-// console.log("\n");
-// console.log(" ********** It is running **********");
-// console.log("\n");
-
-//
 
 // this variable will be a list of objects containing the LearnerId and the sum of their QuotedPrice 
 var billing_list = []
@@ -53,38 +48,25 @@ fs.createReadStream('extract_caspratique.csv')
         // this one is better : my_object.hasOwnProperty('key')
         sum_list.hasOwnProperty(row['LearnerId']) ? sum_list[row['LearnerId']] += parseFloat(row['QuotedPrice']) : sum_list[row['LearnerId']] = parseFloat(row['QuotedPrice']);
 
-        // console.log("\n");
-
-        // console.log(sum_list);
-
-        // console.log("\n");
-
     })
     .on('end', () => {
         console.log("\n");
         console.log('CSV file successfully processed');
 
-        console.log("\n");
-        console.log("*************** ALL Sum List Object ***************");
+        // console.log("\n");
+        // console.log("*************** ALL Sum List Object ***************");
 
-        console.log(sum_list);
+        // console.log(sum_list);
 
         Object.entries(sum_list).forEach(entry => {
             const [key, value] = entry;
-            console.log(key, value);
+            // console.log(key, value);
 
             billing_list.push({
                 learner: key,
                 totalQuoted: value
             })
         });
-
-        // for(let i=0; i<billing_list.length; i++)
-        // {
-        //     console.log("\n");
-        //     // billing_list[i]
-        //     console.log(billing_list[i]);
-        // }
 
         console.log("\n");
         console.log("******************** Final Billing List format ********************");
@@ -97,21 +79,15 @@ fs.createReadStream('extract_caspratique.csv')
     });
 
 
-// console.log("\n");
-// console.log("*************** Billing list ***************");
 
-// console.log(billing_list);
-
-
-// Execute a cron job when the minute is 01 (e.g. 19:01, 20:01, 21:01, etc.).
-
+// Execute a cron job every hour when, the minute is 01 (e.g. 19:01, 20:01, 21:01, etc.).
 const job = schedule.scheduleJob('1 * * * *', function(){
     console.log("\n");
     console.log('The answer to life, the universe, and everything!');
 });
 
 
-// Schedule tasks to be run on the server every hour.
+// Schedule tasks to be run on the server every hour, when the minute is 02 (e.g. 19:02, 20:02, 21:02, etc.).
 cron.schedule('2 * * * *', function() {
     console.log("\n");
     console.log('running a task every hour');
