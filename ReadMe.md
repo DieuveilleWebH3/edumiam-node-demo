@@ -68,7 +68,7 @@ There is one 1 component or main file (module / general scope of project) in thi
 FetchError: invalid json response body at https://hook.integromat.com/lb5g8s0cj3duczsbikrlvtmydzwaxa6j reason: Unexpected token A in JSON at position 0
 
 
-**The post should be working but I the response got from the provided url is off**
+**The post should be working but the response got from the provided url is off**
 
   
  
